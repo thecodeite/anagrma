@@ -1,0 +1,1 @@
+A small tool for jiggling letter to try solving anagrams.
