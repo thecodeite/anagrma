@@ -4,6 +4,13 @@ import './App.css'
 import styled from 'styled-components'
 import { LockButton } from './LockButton'
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+`
+
 const Letters = styled.div<{ $length: number }>` 
   /* display: flex;
   justify-content: center;
@@ -24,6 +31,7 @@ const LetterWrapper = styled.div<{ $pos: number }>`
 
   display: flex;
   flex-direction: column;
+  background-color: green;
 `
 
 const Letter = styled.div`
@@ -32,8 +40,10 @@ const Letter = styled.div`
   font-size: 2rem;
   width: 50px;
   height: 50px;
+  margin: 3px;
   
   border: 1px solid #ccc;
+  text-transform: uppercase;
 `
 
 const ShuffleButton = styled.button`
@@ -47,6 +57,15 @@ const ShuffleButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `
+
+const LettersInput = styled.input`
+  background-color: transparent;
+  border: none;
+  font-size: 1.8rem;
+  text-align: center;
+  text-transform: uppercase;
+`
+
 
 function App() {
   const [letters, setLetters] = useState<string | null>(null)
@@ -72,7 +91,7 @@ function App() {
     // setLetterPos(newLetterPos.map((pos) => pos.pos))
 
     const unlocked = lockedLetters.map((locked, index) => ({ locked, index })).filter(({ locked }) => !locked).map(({ index }) => ({from: index, to: index}))
-    for(let i = 0; i < unlocked.length*2; i++) {
+    for(let i = 0; i < unlocked.length; i++) {
       const a = Math.floor(Math.random() * unlocked.length)
       const b = Math.floor(Math.random() * unlocked.length)
       
@@ -99,10 +118,9 @@ function App() {
   }
 
   return (
-    <>
+    <Wrapper>
       <label >
-        Letters:
-        <input type="text" value={letterString} onChange={(e) => setLetters(e.target.value)} />
+        <LettersInput placeholder='letters' type="text" value={letterString} onChange={(e) => setLetters(e.target.value)} />
       </label>
 
       <ShuffleButton onClick={() => shuffle()} >
@@ -119,7 +137,7 @@ function App() {
           </LetterWrapper>
         ))}
       </Letters>
-    </>
+    </Wrapper>
   )
 }
 
