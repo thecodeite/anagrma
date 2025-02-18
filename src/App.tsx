@@ -18,7 +18,7 @@ const Letters = styled.div<{ $length: number }>`
   position: relative;
   width: ${({ $length }) => ($length ) * 56}px;
   margin-left: 3px;
-  height: 50px;
+  height: 100px;
 `
 
 const LetterWrapper = styled.div<{ $pos: number }>`
@@ -31,7 +31,6 @@ const LetterWrapper = styled.div<{ $pos: number }>`
 
   display: flex;
   flex-direction: column;
-  background-color: green;
 `
 
 const Letter = styled.div`
@@ -46,7 +45,7 @@ const Letter = styled.div`
   text-transform: uppercase;
 `
 
-const ShuffleButton = styled.button`
+const ActionButton = styled.button`
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
@@ -117,15 +116,19 @@ function App() {
     setLockedLetters(newLockedLetters)
   }
 
+  const reset = () => {
+    setLetters(null)
+  }
+
   return (
     <Wrapper>
       <label >
         <LettersInput placeholder='letters' type="text" value={letterString} onChange={(e) => setLetters(e.target.value)} />
       </label>
 
-      <ShuffleButton onClick={() => shuffle()} >
+      <ActionButton onClick={() => shuffle()} >
         Shuffle
-      </ShuffleButton>
+      </ActionButton>
 
       <Letters $length={letterString.length} >
         {letterString.split('').map((letter, index) => (
@@ -137,6 +140,9 @@ function App() {
           </LetterWrapper>
         ))}
       </Letters>
+      <ActionButton onClick={() => reset()} >
+        Reset
+      </ActionButton>
     </Wrapper>
   )
 }
