@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 20" width="16" height="20">
   <path 
-    fill="white"
+    fill="currentColor"
     d="M 8 0 a 5 5 1 0 0 -5 5 v 3 h -1 a -2 -2 0 0 0 -2 2 v 8 a -2 -2 0 0 0 2 2 h 12 a -2 -2 0 0 0 2 -2 v -8 a -2 -2 0 0 0 -2 -2 h -1 v -3 a -5 -5 0 0 0 -5 -5 z m 0 2 a -3 -3 0 0 1 3 3 v 3 h -6 v -3 a -3 -3 0 0 1 3 -3 z M 2 10 h 12 v 8 h -12 v -8 z M 8 12 a 1 1 0 0 0 -1 1 v 2 a 1 1 0 0 0 1 1 a 1 1 0 0 0 1 -1 v -2 a 1 1 0 0 0 -1 -1 z"
   />
 </svg>

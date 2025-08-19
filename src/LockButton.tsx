@@ -7,7 +7,7 @@ const LockButtonWrapper = styled.button`
   border: none;
   
   img {
-    color: white;
+    color: var(--fg);
   }
 `
 

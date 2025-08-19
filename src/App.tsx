@@ -33,7 +33,7 @@ const LetterWrapper = styled.div<{ $pos: number }>`
   flex-direction: column;
 `
 
-const Letter = styled.div`
+const Letter = styled.div<{ $outline?: string }>`
   background-color: #f0f0f0;
   color: #333;
   font-size: 2rem;
@@ -43,14 +43,16 @@ const Letter = styled.div`
   
   border: 1px solid #ccc;
   text-transform: uppercase;
+
+  ${({ $outline }) => $outline && `outline: ${$outline};`}
 `
 
-const ActionButton = styled.button`
+const ActionButton = styled.button<{$bg?: string}>`
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
   font-size: 1.2rem;
-  background-color: #f0f0f0;
+  background-color: ${props => props.$bg || '#f0f0f0'};
   color: #333;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -60,6 +62,7 @@ const ActionButton = styled.button`
 const LettersInput = styled.input`
   background-color: transparent;
   border: none;
+  border-bottom: 2px solid var(--fg);
   font-size: 1.8rem;
   text-align: center;
   text-transform: uppercase;
@@ -71,6 +74,8 @@ function App() {
   const [letterPos, setLetterPos] = useState<number[]>([])
   const [lockedLetters, setLockedLetters] = useState<boolean[]>([])
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null); // NEW
+
 
   useEffect(() => {
     setLetters(window.location.hash.slice(1))
@@ -109,12 +114,15 @@ function App() {
     setLetterPos(newLetterPos)
   }
 
+  
+
   const handleDragStart = (index: number) => {
     setDraggedIndex(index);
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
+ const handleDragOver = (e: React.DragEvent, index: number) => {
     e.preventDefault();
+    setDragOverIndex(index);
   };
 
   const handleDrop = async (targetIndex: number) => {
@@ -161,18 +169,28 @@ function App() {
             $pos={letterPos[index]}
             draggable
             onDragStart={() => handleDragStart(index)}
-            onDragOver={handleDragOver}
+            onDragOver={(e) => handleDragOver(e, index)}
             onDrop={() => handleDrop(index)}
-            style={{ opacity: draggedIndex === index ? 0.5 : 1 }}
+            style={{
+              opacity: draggedIndex === index ? 0.5 : 1,
+             
+              zIndex: dragOverIndex === index ? 2 : 1,
+            }}
           >
-            <Letter>
+            <Letter $outline={
+              dragOverIndex === index && draggedIndex !== null && draggedIndex !== index
+                ? '3px solid #0074D9'
+                : undefined
+            }
+       
+            >
               {letter}
             </Letter>
             <LockButton locked={lockedLetters[index]} onClick={() => buttonClicked(index)}/>
           </LetterWrapper>
         ))}
       </Letters>
-      <ActionButton onClick={() => reset()} >
+      <ActionButton $bg={'#dd6060'} onClick={() => reset()}  >
         Reset
       </ActionButton>
     </Wrapper>
