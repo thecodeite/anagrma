@@ -70,6 +70,7 @@ function App() {
   const [letters, setLetters] = useState<string | null>(null)
   const [letterPos, setLetterPos] = useState<number[]>([])
   const [lockedLetters, setLockedLetters] = useState<boolean[]>([])
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     setLetters(window.location.hash.slice(1))
@@ -108,6 +109,29 @@ function App() {
     setLetterPos(newLetterPos)
   }
 
+  const handleDragStart = (index: number) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = async (targetIndex: number) => {
+    if (draggedIndex === null || draggedIndex === targetIndex) return;
+    
+
+    const newLetterPos = [...letterPos];
+
+    const temp = newLetterPos[draggedIndex];
+    newLetterPos[draggedIndex] = newLetterPos[targetIndex];
+    newLetterPos[targetIndex] = temp;
+    
+
+    setLetterPos(newLetterPos);
+    setDraggedIndex(null);
+  };
+
   const letterString = letters ?? ''
 
   function buttonClicked(index: number) {
@@ -132,7 +156,15 @@ function App() {
 
       <Letters $length={letterString.length} >
         {letterString.split('').map((letter, index) => (
-          <LetterWrapper key={index} $pos={letterPos[index]}>
+          <LetterWrapper
+            key={index}
+            $pos={letterPos[index]}
+            draggable
+            onDragStart={() => handleDragStart(index)}
+            onDragOver={handleDragOver}
+            onDrop={() => handleDrop(index)}
+            style={{ opacity: draggedIndex === index ? 0.5 : 1 }}
+          >
             <Letter>
               {letter}
             </Letter>
