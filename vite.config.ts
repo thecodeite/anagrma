@@ -21,6 +21,18 @@ export default defineConfig({
         description: 'Anagram game as a PWA',
         icons: [
           {
+            src: '/favicon192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+          {
+            src: '/favicon.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+          {
             src: '/favicon.svg',
             sizes: 'any',
             type: 'image/svg+xml',
