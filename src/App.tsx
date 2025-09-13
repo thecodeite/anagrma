@@ -16,7 +16,7 @@ const Letters = styled.div<{ $length: number }>`
   justify-content: center;
   gap: 4px; */
   position: relative;
-  width: ${({ $length }) => ($length ) * 56}px;
+  width: ${({ $length }) => ($length ) * 46}px;
   margin-left: 3px;
   height: 100px;
 `
@@ -24,7 +24,7 @@ const Letters = styled.div<{ $length: number }>`
 const LetterWrapper = styled.div<{ $pos: number }>`
   position: absolute;
   top: 0;
-  left: ${({ $pos }) => $pos * 56}px;
+  left: ${({ $pos }) => $pos * 46}px;
 
   transition: left 0.5s;
   height: 100px;
@@ -36,9 +36,9 @@ const LetterWrapper = styled.div<{ $pos: number }>`
 const Letter = styled.div<{ $outline?: string }>`
   background-color: #f0f0f0;
   color: #333;
-  font-size: 2rem;
-  width: 50px;
-  height: 50px;
+  font-size: 1.6rem;
+  width: 40px;
+  height: 40px;
   margin: 3px;
   
   border: 1px solid #ccc;
